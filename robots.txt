@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /book/manage/
+Disallow: /pay/
+
+Sitemap: https://operasolutions.tech/sitemap.xml

@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>First Serve UK Partner Portal</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/app.css">
+<style>
+  .shell { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+  aside { background: var(--navy); color: #fff; padding: 22px 16px; display: flex; flex-direction: column; gap: 6px; position: sticky; top: 0; height: 100vh; }
+  aside .brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 18px; }
+  aside .brand img { width: 40px; height: 40px; border-radius: 10px; background: #fff; padding: 3px; }
+  aside .brand b { font-family: var(--display); font-size: 15px; display: block; line-height: 1.1; }
+  aside .brand span { font-size: 11px; opacity: .7; }
+  aside nav button { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: transparent; color: rgba(255,255,255,.78); padding: 10px 12px; border-radius: 10px; font-weight: 500; text-align: left; }
+  aside nav button svg { width: 18px; height: 18px; }
+  aside nav button.on { background: rgba(255,255,255,.14); color: #fff; }
+  aside nav button:hover { background: rgba(255,255,255,.09); color: #fff; }
+  aside .acct { margin-top: auto; background: rgba(255,255,255,.08); border-radius: 12px; padding: 12px; display: flex; gap: 10px; align-items: center; font-size: 12px; }
+  aside .acct .av { background: var(--orange); }
+  aside .acct b { display: block; font-size: 13px; }
+  main { padding: 28px 32px 48px; max-width: 1240px; width: 100%; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+  .topbar h1 { font-size: 24px; font-weight: 800; }
+  .topbar p { margin: 2px 0 0; color: var(--muted); }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .two { display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; align-items: start; }
+  .stack { display: grid; gap: 18px; }
+  .job-mini { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; padding: 12px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .job-mini:last-child { border-bottom: 0; }
+  .job-mini b { font-weight: 600; }
+  .notice { display: flex; gap: 12px; align-items: center; background: var(--orange-soft); border: 1px solid #F7D5B0; border-radius: 14px; padding: 12px 16px; margin-bottom: 18px; }
+  .notice .ic { width: 36px; height: 36px; border-radius: 10px; background: var(--orange); color: #fff; display: grid; place-items: center; font-weight: 800; flex: 0 0 auto; }
+  .notice b { display: block; }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form .full { grid-column: 1 / -1; }
+  .slots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .slots .d { border: 1px solid var(--line); border-radius: 12px; padding: 10px; }
+  .slots .d h4 { font-size: 12px; color: var(--ink-2); font-weight: 600; margin-bottom: 8px; }
+  .slots .d button { width: 100%; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 7px 4px; margin-bottom: 6px; font-size: 12px; color: var(--ink); }
+  .slots .d button.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .slots .d button[disabled] { opacity: .35; text-decoration: line-through; }
+  .price-card { background: var(--navy); color: #fff; border-radius: 16px; padding: 20px; display: grid; gap: 8px; }
+  .price-card .big { font-family: var(--display); font-size: 34px; font-weight: 800; }
+  .price-card small { opacity: .8; }
+  .confirm { text-align: center; padding: 40px 20px; }
+  .confirm .tick { width: 72px; height: 72px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; margin: 0 auto 16px; font-size: 32px; }
+  .confirm h2 { font-size: 24px; font-weight: 800; }
+  .confirm .ref { font-family: var(--display); font-size: 20px; color: var(--navy); font-weight: 800; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 24px 0; }
+  .steps div { background: var(--bg); border-radius: 12px; padding: 12px; text-align: left; font-size: 13px; }
+  .steps div b { display: block; color: var(--navy); margin-bottom: 2px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .filters button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 12px; font-size: 13px; }
+  .filters button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .parts-box { background: var(--orange-soft); border-radius: 12px; padding: 14px; margin-top: 14px; }
+  .parts-box .row { display: flex; justify-content: space-between; font-weight: 600; }
+  .photos { display: flex; gap: 8px; margin-top: 10px; }
+  .photos span { width: 64px; height: 64px; border-radius: 10px; background: linear-gradient(135deg, #CFD8E3, #AEBBCB); display: grid; place-items: center; color: #fff; font-size: 11px; font-weight: 700; }
+  .inv { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .inv:last-child { border-bottom: 0; }
+  .partner-switch { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--muted); }
+  .partner-switch select { border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font-size: 12px; background: #fff; }
+  @media (max-width: 980px) {
+    .shell { grid-template-columns: 1fr; }
+    aside { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
+    aside nav { display: flex; gap: 4px; flex-wrap: wrap; }
+    aside .acct { margin-top: 0; margin-left: auto; }
+    main { padding: 20px 16px 40px; }
+    .topbar > div:first-child { flex: 1 1 100%; }
+    .grid4 { grid-template-columns: 1fr 1fr; }
+    .two, .form { grid-template-columns: 1fr; }
+    .slots { grid-template-columns: repeat(3, 1fr); }
+    .steps { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <div class="brand"><img src="../assets/favicon.png" alt=""><div><b>First Serve UK</b><span>Partner portal</span></div></div>
+    <nav id="nav">
+      <button data-page="overview" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Overview</button>
+      <button data-page="book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Book a repair</button>
+      <button data-page="jobs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Jobs</button>
+      <button data-page="properties"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Properties</button>
+      <button data-page="invoices"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h6M9 16h6"/></svg>Invoices</button>
+    </nav>
+    <div class="acct"><span class="av" id="acctAv">PS</span><div><b id="acctName">Priya Shah</b><span id="acctOrg">Kingsman Estate Agents</span></div></div>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div><h1 id="title">Overview</h1><p id="subtitle"></p></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div class="partner-switch">Viewing as <select id="partnerSel"></select></div>
+        <button class="btn accent" id="quickBook">Book a repair</button>
+      </div>
+    </div>
+    <div id="page"></div>
+  </main>
+</div>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<div class="drawer" id="drawer"></div>
+<div class="toast" id="toast"></div>
+
+<script src="../shared/store.js"></script>
+<script>
+(function () {
+  const $ = (s, el) => (el || document).querySelector(s);
+  const esc = FS.esc;
+  FS.load();
+  let partnerId = localStorage.getItem('fsuk-portal-partner') || 'p1';
+  let page = 'overview';
+  let jobsFilter = 'open';
+  let booking = { propertyId: '', appliance: 'Washing machine', brand: 'Bosch', fault: 'Not draining', service: 'next', day: 1, window: 'am' };
+  let confirmed = null;
+
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2600); }
+  const partner = () => FS.partner(partnerId);
+  const myJobs = () => FS.get().jobs.filter((j) => j.partnerId === partnerId).sort((a, b) => a.day - b.day || FS.win(a.window).start - FS.win(b.window).start);
+  const statusChip = (j) => { const s = FS.STATUS[j.status]; const live = ['enroute', 'onsite'].includes(j.status); return `<span class="chip ${s.tone}${live ? ' live' : ''}">${s.label}</span>`; };
+
+  function setPartner(id) { partnerId = id; localStorage.setItem('fsuk-portal-partner', id); const p = partner(); $('#acctName').textContent = p.contact; $('#acctOrg').textContent = p.name; $('#acctAv').textContent = FS.initials(p.contact); render(); }
+
+  function renderOverview() {
+    const st = FS.stats(partnerId); const p = partner();
+    const open = myJobs().filter((j) => !['done', 'cancelled'].includes(j.status));
+    const recentDone = myJobs().filter((j) => j.status === 'done').sort((a, b) => b.day - a.day).slice(0, 4);
+    const approvals = st.approvals;
+    return `
+      ${approvals.length ? `<div class="notice rise"><div class="ic">!</div><div style="flex:1"><b>${approvals.length} parts quote waiting for your approval</b><span class="sub">${approvals.map((j) => `${j.ref}, ${esc(FS.prop(j.propertyId).address)}: ${esc(j.parts[j.parts.length - 1].name)} ${FS.money(j.parts[j.parts.length - 1].price)}`).join(' · ')}</span></div><button class="btn primary sm" data-open="${approvals[0].id}">Review</button></div>` : ''}
+      <div class="grid4 rise">
+        <div class="card kpi"><div class="label">Open repairs</div><div class="value">${open.length}</div><div class="delta">${open.filter((j) => j.day === 0).length} happening today</div></div>
+        <div class="card kpi"><div class="label">Completed this month</div><div class="value">${st.inMonth.filter((j) => j.status === 'done').length}</div><div class="delta up">First-time fix ${st.firstTime}%</div></div>
+        <div class="card kpi"><div class="label">Spend this month</div><div class="value">${FS.money(st.spendMonth)}</div><div class="delta">One invoice, end of month</div></div>
+        <div class="card kpi"><div class="label">Tenant chasing calls</div><div class="value">0</div><div class="delta up">Every tenant texted live updates</div></div>
+      </div>
+      <div class="two">
+        <div class="card rise"><div class="head"><h3>Live repairs for ${esc(p.short)}</h3><button class="btn ghost sm" data-nav="jobs">All jobs</button></div>
+          <div class="body" style="padding-top:6px;padding-bottom:6px">
+            ${open.length ? open.map((j) => { const pr = FS.prop(j.propertyId); const e = FS.eng(j.engineerId); return `
+              <div class="job-mini" data-open="${j.id}">
+                <div><b>${esc(pr.address)}</b> <span class="sub">${esc(pr.postcode)}</span><div class="sub">${esc(j.brand)} ${esc(j.appliance.toLowerCase())}, ${esc(j.fault.toLowerCase())} · ${FS.slotLabel(j)}${e ? ' · ' + esc(e.name) : ''}</div></div>
+                <div style="text-align:right">${statusChip(j)}<div class="sub mono">${j.ref}</div></div>
+              </div>`; }).join('') : '<p class="sub" style="padding:14px 0">Nothing open. Book a repair and it appears here with live status.</p>'}
+          </div>
+        </div>
+        <div class="stack">
+          <div class="card rise"><div class="head"><h3>Recently completed</h3></div><div class="body" style="padding-top:6px;padding-bottom:6px">
+            ${recentDone.map((j) => { const pr = FS.prop(j.propertyId); return `<div class="job-mini" data-open="${j.id}"><div><b>${esc(pr.address)}</b><div class="sub">${esc(j.notes || 'Repaired and tested')}</div></div><div style="text-align:right"><b>${FS.money(FS.total(j))}</b><div class="sub">${FS.dayName(j.day)}</div></div></div>`; }).join('')}
+          </div></div>
+          <div class="card rise"><div class="body" style="display:flex;gap:14px;align-items:center">
+            <span class="av lg" style="background:var(--orange)">6m</span>
+            <div><b>Every repair carries a six-month guarantee.</b><div class="sub">If the same fault comes back, book the return visit here at no charge and the engineer sees the full history.</div></div>
+          </div></div>
+        </div>
+      </div>`;
+  }
+
+  function renderBook() {
+    if (confirmed) {
+      const j = confirmed; const pr = FS.prop(j.propertyId); const e = FS.eng(j.engineerId);
+      return `<div class="card rise"><div class="confirm">
+        <div class="tick">✓</div>
+        <h2>Repair booked</h2>
+        <p class="sub" style="margin:6px 0 10px">Reference <span class="ref">${j.ref}</span></p>
+        <p style="max-width:520px;margin:0 auto">${esc(pr.tenant)} at ${esc(pr.address)} has been texted the slot (${FS.slotLabel(j)}) and will get a live arrival time on the day. ${e ? esc(e.name) + ' already has it in the diary.' : 'The office will assign an engineer shortly.'}</p>
+        <div class="steps">
+          <div><b>1. Booked</b>${FS.SERVICE_LABEL[j.service]}, ${FS.money(j.price)} charged to the ${esc(partner().short)} account</div>
+          <div><b>2. On the way</b>Tenant gets a text with a live arrival time</div>
+          <div><b>3. On site</b>Diagnosis, repair, photos and notes</div>
+          <div><b>4. Done</b>Report lands here, invoice at month end</div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn primary" data-open="${j.id}">Track this repair</button>
+          <button class="btn ghost" id="bookAnother">Book another</button>
+        </div>
+      </div></div>`;
+    }
+    const props = FS.get().properties.filter((p) => p.partnerId === partnerId);
+    const sel = booking.propertyId ? FS.prop(booking.propertyId) : null;
+    const days = [0, 1, 2, 3, 4];
+    const taken = (d, w) => FS.get().engineers.every((e) => FS.get().jobs.some((j) => j.engineerId === e.id && j.day === d && j.window === w && !['done', 'cancelled'].includes(j.status)));
+    const nowH = new Date().getHours();
+    const price = FS.PRICES[booking.service];
+    return `<div class="two">
+      <div class="card rise"><div class="head"><h3>Book a repair</h3><span class="sub">Takes about a minute</span></div><div class="body form">
+        <div class="field full"><label>Property</label>
+          <select id="bProp"><option value="">Add a new address</option>${props.map((p) => `<option value="${p.id}" ${p.id === booking.propertyId ? 'selected' : ''}>${esc(p.address)}, ${esc(p.postcode)}</option>`).join('')}</select></div>
+        ${sel ? '' : `<div class="field"><label>Address</label><input id="bAddr" placeholder="Flat 2, 10 Example Road" value="${esc(booking.address || '')}"></div><div class="field"><label>Postcode</label><input id="bPc" placeholder="SW6 4HH" value="${esc(booking.postcode || '')}"></div>`}
+        <div class="field"><label>Tenant name</label><input id="bTenant" value="${esc(sel ? sel.tenant : (booking.tenant || ''))}"></div>
+        <div class="field"><label>Tenant mobile (for live updates)</label><input id="bPhone" value="${esc(sel ? sel.tenantPhone : (booking.tenantPhone || ''))}" placeholder="07..."></div>
+        <div class="field"><label>Appliance</label><select id="bApp">${FS.APPLIANCES.map((a) => `<option ${a === booking.appliance ? 'selected' : ''}>${a}</option>`).join('')}</select></div>
+        <div class="field"><label>Brand</label><select id="bBrand">${FS.BRANDS.map((a) => `<option ${a === booking.brand ? 'selected' : ''}>${a}</option>`).join('')}</select></div>
+        ${booking.service === 'steam' ? `<div class="field full"><label>Steam clean</label><div class="sub" style="background:var(--blue-soft);border-radius:10px;padding:10px 12px;color:var(--navy)">Steam at up to 105°C through the drum, door seal, soap drawer and pump filter. If the door seal is too far gone the engineer quotes a replacement here for you to approve.</div></div>` : `<div class="field full"><label>What is it doing?</label><div class="seg wrap" id="bFault">${FS.FAULTS.map((f) => `<button type="button" class="${f === booking.fault ? 'on' : ''}" data-f="${esc(f)}">${esc(f)}</button>`).join('')}</div></div>`}
+        <div class="field full"><label>Anything the engineer should know (access, parking, key safe)</label><textarea id="bAccess" placeholder="Key safe by the door, code with the tenant. Permit parking on the street.">${esc(booking.access || '')}</textarea></div>
+        <div class="field full"><label>Service</label><div class="seg" id="bService">
+          <button type="button" class="${booking.service === 'next' ? 'on' : ''}" data-s="next">Next day · ${FS.money(FS.PRICES.next)}</button>
+          <button type="button" class="${booking.service === 'same' ? 'on' : ''}" data-s="same">Same day · ${FS.money(FS.PRICES.same)}</button>
+          <button type="button" class="${booking.service === 'steam' ? 'on' : ''}" data-s="steam">Steam clean · ${FS.money(FS.PRICES.steam)}</button>
+        </div></div>
+        <div class="field full"><label>Pick a slot</label><div class="slots" id="bSlots">
+          ${days.map((d) => `<div class="d"><h4>${FS.dayName(d)}</h4>${FS.WINDOWS.map((w) => { const dis = (d === 0 && (booking.service !== 'same' || w.start <= nowH)) || (d > 0 && booking.service === 'same') || taken(d, w.id); return `<button type="button" data-d="${d}" data-w="${w.id}" class="${booking.day === d && booking.window === w.id ? 'on' : ''}" ${dis ? 'disabled' : ''}>${w.label}</button>`; }).join('')}</div>`).join('')}
+        </div></div>
+      </div></div>
+      <div class="stack">
+        <div class="price-card rise">
+          <small>${booking.service === 'steam' ? 'Steam clean and sanitise, with a photo report' : 'Call-out, diagnosis and up to two hours labour'}</small>
+          <div class="big">${FS.money(price)}</div>
+          <small>Charged to the ${esc(partner().short)} account, one invoice at month end. Parts are quoted before anything is ordered and you approve them here.</small>
+          <button class="btn accent lg block" id="bSubmit" style="margin-top:8px">Confirm booking</button>
+          <small>Same price seven days a week. Six-month guarantee on every repair.</small>
+        </div>
+        <div class="card rise"><div class="body"><b>What happens next</b>
+          <ol style="margin:8px 0 0;padding-left:18px;color:var(--ink-2);display:grid;gap:6px">
+            <li>The tenant gets a text with the slot and a link to track the engineer.</li>
+            <li>The engineer sees the fault, the access notes and the machine before arriving.</li>
+            <li>You see live status here: on the way, on site, done, with photos and notes.</li>
+          </ol></div></div>
+      </div>
+    </div>`;
+  }
+
+  function renderJobs() {
+    const all = myJobs();
+    const list = all.filter((j) => jobsFilter === 'all' ? true : jobsFilter === 'open' ? !['done', 'cancelled'].includes(j.status) : jobsFilter === 'done' ? j.status === 'done' : j.status === 'parts');
+    const sorted = jobsFilter === 'done' ? list.slice().sort((a, b) => b.day - a.day) : list;
+    return `<div class="filters rise">
+      ${[['open', 'Open'], ['parts', 'Needs approval'], ['done', 'Completed'], ['all', 'All']].map(([k, l]) => `<button data-filter="${k}" class="${jobsFilter === k ? 'on' : ''}">${l}${k === 'parts' && all.some((j) => j.status === 'parts') ? ' · ' + all.filter((j) => j.status === 'parts').length : ''}</button>`).join('')}
+    </div>
+    <div class="card rise"><table class="list"><thead><tr><th>Ref</th><th>Property</th><th>Appliance</th><th>Slot</th><th>Engineer</th><th>Status</th><th style="text-align:right">Total</th></tr></thead><tbody>
+      ${sorted.length ? sorted.map((j) => { const pr = FS.prop(j.propertyId); const e = FS.eng(j.engineerId); return `<tr class="row" data-open="${j.id}">
+        <td class="mono">${j.ref}</td><td><b>${esc(pr.address)}</b><div class="sub">${esc(pr.postcode)} · ${esc(pr.tenant)}</div></td>
+        <td>${esc(j.brand)} ${esc(j.appliance.toLowerCase())}<div class="sub">${esc(j.fault)}</div></td>
+        <td>${FS.slotLabel(j)}</td><td>${e ? `<span style="display:inline-flex;align-items:center;gap:6px"><span class="av sm">${e.initials}</span>${e.name}</span>` : '<span class="sub">Assigning</span>'}</td>
+        <td>${statusChip(j)}</td><td style="text-align:right"><b>${FS.money(FS.total(j))}</b></td></tr>`; }).join('') : '<tr><td colspan="7" class="sub" style="text-align:center;padding:30px">Nothing here yet.</td></tr>'}
+    </tbody></table></div>`;
+  }
+
+  function renderProperties() {
+    const props = FS.get().properties.filter((p) => p.partnerId === partnerId);
+    return `<div class="card rise"><table class="list"><thead><tr><th>Address</th><th>Tenant</th><th>Repairs</th><th>Last visit</th><th>Guarantee</th><th></th></tr></thead><tbody>
+      ${props.map((p) => { const js = FS.get().jobs.filter((j) => j.propertyId === p.id); const last = js.filter((j) => j.status === 'done').sort((a, b) => b.day - a.day)[0]; const g = last && last.day > -183; return `<tr>
+        <td><b>${esc(p.address)}</b><div class="sub">${esc(p.postcode)}</div></td><td>${esc(p.tenant)}<div class="sub">${esc(p.tenantPhone)}</div></td>
+        <td>${js.length}</td><td>${last ? FS.dayName(last.day) + '<div class="sub">' + esc(last.brand) + ', ' + esc(last.fault.toLowerCase()) + '</div>' : '<span class="sub">None yet</span>'}</td>
+        <td>${g ? '<span class="chip green">Covered</span>' : '<span class="sub">No open guarantee</span>'}</td>
+        <td style="text-align:right"><button class="btn soft sm" data-bookprop="${p.id}">Book repair</button></td></tr>`; }).join('')}
+    </tbody></table></div>`;
+  }
+
+  function renderInvoices() {
+    const st = FS.stats(partnerId);
+    const months = [];
+    const now = new Date();
+    for (let i = 0; i < 4; i++) { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); months.push(d); }
+    return `<div class="card rise"><div class="head"><h3>Invoices for ${esc(partner().name)}</h3><span class="sub">One consolidated invoice per month, itemised per property</span></div><div class="body" style="padding-top:4px;padding-bottom:4px">
+      ${months.map((d, i) => { const label = d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); const amt = i === 0 ? st.spendMonth : [1267, 1088, 1486][i - 1]; const jobs = i === 0 ? st.inMonth.length : [11, 9, 13][i - 1]; return `<div class="inv">
+        <div><b>${label}</b><div class="sub">${jobs} repairs across ${Math.min(jobs, 9)} properties</div></div>
+        <div style="text-align:right"><b>${FS.money(amt)}</b><div class="sub">${i === 0 ? 'Running total' : 'Paid'}</div></div>
+        <div>${i === 0 ? '<span class="chip blue">Open</span>' : '<button class="btn ghost sm" data-toast="Invoice PDF downloaded">PDF</button>'}</div></div>`; }).join('')}
+    </div></div>`;
+  }
+
+  function render() {
+    const p = partner();
+    const titles = { overview: ['Overview', `Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${p.contact.split(' ')[0]}. Here is where every repair for ${p.name} stands.`], book: ['Book a repair', 'Pick the property, tell us the fault, choose a slot. The tenant and the engineer are told straight away.'], jobs: ['Jobs', 'Every repair booked by your branch, with live status.'], properties: ['Properties', 'Addresses you manage, with repair history and guarantee cover.'], invoices: ['Invoices', 'One monthly invoice, itemised by property, with every report attached.'] };
+    $('#title').textContent = titles[page][0]; $('#subtitle').textContent = titles[page][1];
+    document.querySelectorAll('#nav button').forEach((b) => b.classList.toggle('on', b.dataset.page === page));
+    $('#page').innerHTML = { overview: renderOverview, book: renderBook, jobs: renderJobs, properties: renderProperties, invoices: renderInvoices }[page]();
+    if (page === 'book' && !confirmed) bindBook();
+    if (drawerJob) openJob(drawerJob, true);
+  }
+
+  function bindBook() {
+    const pg = $('#page');
+    const read = () => {
+      booking.address = $('#bAddr') ? $('#bAddr').value : booking.address; booking.postcode = $('#bPc') ? $('#bPc').value : booking.postcode;
+      booking.tenant = $('#bTenant').value; booking.tenantPhone = $('#bPhone').value; booking.appliance = $('#bApp').value; booking.brand = $('#bBrand').value; booking.access = $('#bAccess').value;
+    };
+    $('#bProp').addEventListener('change', (e) => { read(); booking.propertyId = e.target.value; booking.tenant = ''; booking.tenantPhone = ''; render(); });
+    pg.querySelectorAll('#bFault button').forEach((b) => b.addEventListener('click', () => { read(); booking.fault = b.dataset.f; render(); }));
+    pg.querySelectorAll('#bService button').forEach((b) => b.addEventListener('click', () => { read(); booking.service = b.dataset.s; booking.day = b.dataset.s === 'same' ? 0 : 1; const h = new Date().getHours(); booking.window = b.dataset.s === 'same' ? (h < 8 ? 'am' : h < 11 ? 'mid' : 'pm') : 'am'; render(); }));
+    pg.querySelectorAll('#bSlots button').forEach((b) => b.addEventListener('click', () => { read(); booking.day = +b.dataset.d; booking.window = b.dataset.w; render(); }));
+    $('#bSubmit').addEventListener('click', () => {
+      read();
+      if (!booking.propertyId && (!booking.address || !booking.postcode)) { toast('Add the address and postcode first'); return; }
+      if (!booking.tenant) { toast('Add the tenant name so we can text them'); return; }
+      const slotBtn = pg.querySelector(`#bSlots button[data-d="${booking.day}"][data-w="${booking.window}"]`);
+      if (!slotBtn || slotBtn.disabled) { toast('Pick an available slot'); return; }
+      const j = FS.book(Object.assign({ partnerId }, booking, booking.service === 'steam' ? { fault: 'Steam clean and sanitise' } : {}), partnerId);
+      confirmed = j; booking = { propertyId: '', appliance: 'Washing machine', brand: 'Bosch', fault: 'Not draining', service: 'next', day: 1, window: 'am' };
+      render(); toast('Booked. Tenant texted, engineer notified.');
+    });
+  }
+
+  // Drawer
+  let drawerJob = null;
+  function openJob(id, silent) {
+    const j = FS.job(id); if (!j) return; drawerJob = id;
+    const pr = FS.prop(j.propertyId); const e = FS.eng(j.engineerId); const pending = j.parts.find((p) => !p.approved && !p.declined);
+    $('#drawer').innerHTML = `
+      <div class="dh"><div><div class="sub mono">${j.ref}</div><h2 style="font-size:20px;font-weight:800">${esc(pr.address)}</h2><div class="sub">${esc(pr.postcode)} · ${esc(pr.tenant)} · ${esc(pr.tenantPhone)}</div><div style="margin-top:8px">${statusChip(j)}</div></div><button class="x" id="dClose">×</button></div>
+      <div class="db">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px">
+          <div class="card" style="box-shadow:none"><div class="body" style="padding:14px"><div class="sub">Appliance</div><b>${esc(j.brand)} ${esc(j.appliance.toLowerCase())}</b><div class="sub">${esc(j.fault)}${j.detail ? ' · ' + esc(j.detail) : ''}</div></div></div>
+          <div class="card" style="box-shadow:none"><div class="body" style="padding:14px"><div class="sub">Slot</div><b>${FS.slotLabel(j)}</b><div class="sub">${FS.SERVICE_LABEL[j.service]} · ${FS.money(j.price)}</div></div></div>
+          <div class="card" style="box-shadow:none;grid-column:1/-1"><div class="body" style="padding:14px;display:flex;gap:12px;align-items:center">${e ? `<span class="av">${e.initials}</span><div><b>${e.name}</b><div class="sub">Van ${e.van} · ${e.area} · ${e.rating} ★</div></div>` : '<div class="sub">Engineer being assigned by the office</div>'}</div></div>
+        </div>
+        ${j.access ? `<p style="margin:0 0 16px"><span class="sub">Access notes</span><br>${esc(j.access)}</p>` : ''}
+        ${pending ? `<div class="parts-box"><b>Parts needed to finish this repair</b><div class="sub" style="margin:4px 0 10px">${esc(j.notes)}</div><div class="row"><span>${esc(pending.name)}</span><span>${FS.money(pending.price)}</span></div><div class="row sub" style="font-weight:500"><span>Fitting on the return visit</span><span>Included</span></div>
+          <div style="display:flex;gap:8px;margin-top:12px"><button class="btn accent" id="dApprove">Approve ${FS.money(pending.price)}</button><button class="btn ghost" id="dDecline">Decline</button></div></div>` : ''}
+        ${j.notes && !pending ? `<div class="card" style="box-shadow:none;margin-bottom:16px"><div class="body" style="padding:14px"><div class="sub">Engineer report</div>${esc(j.notes)}${j.parts.filter((p) => p.approved).map((p) => `<div class="sub">Part fitted: ${esc(p.name)}, ${FS.money(p.price)}</div>`).join('')}${j.photos ? `<div class="photos">${Array.from({ length: Math.min(j.photos, 3) }).map((_, i) => `<span>Photo ${i + 1}</span>`).join('')}</div>` : ''}</div></div>` : ''}
+        <h3 style="font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 10px">Timeline</h3>
+        <ul class="tl">${j.timeline.slice().reverse().map((t) => `<li>${esc(t.text)}<span class="t">${FS.dayName(Math.round((new Date(t.at).setHours(0,0,0,0) - new Date().setHours(0,0,0,0)) / 86400000))} ${FS.timeStr(t.at)}</span></li>`).join('')}</ul>
+      </div>
+      <div class="df"><div style="display:flex;justify-content:space-between;width:100%;align-items:center"><div><span class="sub">Total to date</span><br><b style="font-size:18px">${FS.money(FS.total(j))}</b></div>
+        ${j.status === 'done' ? '<button class="btn ghost" data-toast="Report PDF downloaded">Download report</button>' : `<button class="btn ghost" data-toast="Message sent to the office">Message the office</button>`}</div></div>`;
+    $('#drawer').classList.add('open'); $('#drawerBg').classList.add('open');
+    $('#dClose').onclick = closeDrawer;
+    if (pending) { $('#dApprove').onclick = () => { FS.approveParts(j.id, true, partner().contact); toast('Approved. Return visit booked, tenant texted.'); }; $('#dDecline').onclick = () => { FS.approveParts(j.id, false, partner().contact); toast('Declined. Job closed with a report.'); }; }
+  }
+  function closeDrawer() { drawerJob = null; $('#drawer').classList.remove('open'); $('#drawerBg').classList.remove('open'); }
+  $('#drawerBg').addEventListener('click', closeDrawer);
+
+  document.addEventListener('click', (ev) => {
+    const o = ev.target.closest('[data-open]'); if (o) { openJob(o.dataset.open); return; }
+    const n = ev.target.closest('[data-nav]'); if (n) { page = n.dataset.nav; render(); return; }
+    const f = ev.target.closest('[data-filter]'); if (f) { jobsFilter = f.dataset.filter; render(); return; }
+    const bp = ev.target.closest('[data-bookprop]'); if (bp) { booking.propertyId = bp.dataset.bookprop; confirmed = null; page = 'book'; render(); return; }
+    const t = ev.target.closest('[data-toast]'); if (t) { toast(t.dataset.toast); return; }
+    if (ev.target.id === 'bookAnother') { confirmed = null; render(); }
+  });
+  document.querySelectorAll('#nav button').forEach((b) => b.addEventListener('click', () => { page = b.dataset.page; if (page !== 'book') confirmed = null; window.scrollTo(0, 0); render(); }));
+  $('#quickBook').addEventListener('click', () => { page = 'book'; confirmed = null; render(); });
+  const ps = $('#partnerSel'); FS.get().partners.forEach((p) => { const o = document.createElement('option'); o.value = p.id; o.textContent = p.short; ps.appendChild(o); }); ps.value = partnerId;
+  ps.addEventListener('change', () => setPartner(ps.value));
+  FS.subscribe(() => render());
+  setPartner(partnerId);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>HeyHoney Creator App</title>
+<meta name="description" content="Private working preview of the HeyHoney Creator App and staff portal by Opera Solutions.">
+<meta name="theme-color" content="#141210">
+<link rel="icon" href="./assets/opera-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A83A;
+    --gold-deep: #B8891F;
+    --black: #141210;
+    --charcoal: #1E1B17;
+    --surface: #26221C;
+    --off: #F6F1E6;
+    --muted: #A79F90;
+    --line: rgba(246,241,230,.1);
+    --green: #0F3D2E;
+    --green-2: #1F5C43;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--black);
+    color: var(--off);
+    font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    line-height: 1.55;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(1000px 600px at 85% -10%, rgba(212,168,58,.14), transparent 60%),
+      radial-gradient(700px 500px at -10% 100%, rgba(184,137,31,.1), transparent 60%);
+  }
+  /* Honeycomb pattern, kept faint */
+  .hex {
+    position: fixed; inset: 0; pointer-events: none; opacity: .055;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'><path d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23D4A83A' stroke-width='2'/><path d='M28 0L28 -34' stroke='%23D4A83A' stroke-width='2'/></svg>");
+    background-size: 56px 100px;
+  }
+  .wrap { position: relative; max-width: 1180px; margin: 0 auto; padding: 28px 24px 48px; }
+
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  header .hh img { height: 34px; display: block; }
+  header .by { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; }
+  header .by img { width: 28px; height: 28px; border-radius: 50%; }
+  header .by b { color: var(--off); font-weight: 600; }
+
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; margin-top: 56px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--gold); background: rgba(212,168,58,.1); border: 1px solid rgba(212,168,58,.3); border-radius: 999px; padding: 6px 12px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: #5BC98C; box-shadow: 0 0 0 4px rgba(91,201,140,.2); display: inline-block; }
+  h1 {
+    font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(40px, 5.6vw, 68px); line-height: 1.02; margin: 18px 0 16px; letter-spacing: .005em;
+  }
+  h1 span { color: var(--gold); }
+  .intro { font-size: 18px; color: var(--off); max-width: 520px; margin: 0 0 28px; }
+  .intro b { color: var(--gold); font-weight: 600; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 15px;
+    padding: 14px 20px; border-radius: 12px; transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.gold { background: var(--gold); color: var(--black); }
+  .btn.gold:hover { background: #E2B84E; }
+  .btn.ghost { background: var(--charcoal); color: var(--off); border: 1px solid var(--line); }
+  .btn.ghost:hover { background: var(--surface); }
+  .btn svg { width: 18px; height: 18px; }
+
+  .try h2 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 14px; }
+  .try ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: t; }
+  .try li {
+    counter-increment: t; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start;
+    background: var(--charcoal); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  }
+  .try li::before {
+    content: counter(t); font-family: 'Anton', Impact, sans-serif; font-size: 24px; color: var(--gold); line-height: 1; padding-top: 2px;
+  }
+  .try li strong { display: block; font-weight: 600; color: var(--off); margin-bottom: 2px; }
+  .try li span { color: var(--muted); font-size: 14px; }
+  .try li a { color: var(--gold); text-decoration: none; font-weight: 500; }
+
+  /* Phone frame */
+  .stage { display: flex; justify-content: center; }
+  .phone {
+    position: relative; width: 418px; height: 872px; border-radius: 58px;
+    background: #0B0A09; padding: 14px;
+    box-shadow:
+      0 0 0 2px #2A2620, 0 0 0 4px #0B0A09,
+      0 40px 90px rgba(0,0,0,.6), 0 0 120px rgba(212,168,58,.08);
+  }
+  .phone::before { /* side buttons */
+    content: ""; position: absolute; left: -7px; top: 160px; width: 4px; height: 110px; background: #2A2620; border-radius: 3px;
+    box-shadow: 0 130px 0 #2A2620;
+  }
+  .phone::after {
+    content: ""; position: absolute; right: -7px; top: 210px; width: 4px; height: 70px; background: #2A2620; border-radius: 3px;
+  }
+  .screen {
+    position: relative; width: 390px; height: 844px; border-radius: 44px; overflow: hidden; background: var(--black);
+  }
+  .screen iframe { width: 390px; height: 844px; border: 0; display: block; background: var(--black); }
+  .island {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 122px; height: 36px; border-radius: 20px; background: #0B0A09; z-index: 2;
+  }
+  .stage-note { text-align: center; color: var(--muted); font-size: 13px; margin-top: 16px; }
+  .stage-note a { color: var(--gold); text-decoration: none; }
+
+  footer {
+    margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; color: var(--muted); font-size: 14px;
+  }
+  footer .sig { display: flex; align-items: center; gap: 12px; }
+  footer .sig img { width: 36px; height: 36px; border-radius: 50%; }
+  footer .sig b { display: block; color: var(--off); font-weight: 600; }
+  footer a { color: var(--off); text-decoration: none; font-weight: 500; }
+  footer .wa { display: inline-flex; align-items: center; gap: 8px; background: var(--charcoal); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+
+  .hero > div, .stage, .try, .try li > div { min-width: 0; }
+  body { overflow-x: hidden; }
+  @media (max-width: 1040px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; }
+    .stage { order: -1; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 20px 16px 40px; }
+    header { flex-direction: column; align-items: flex-start; }
+    .hero { margin-top: 28px; gap: 28px; }
+    .intro { font-size: 16px; }
+    /* Full-width app instead of the phone frame */
+    .stage { display: block; }
+    .phone { width: 100%; max-width: 100%; height: auto; border-radius: 20px; padding: 0; background: transparent; box-shadow: none; }
+    .phone::before, .phone::after, .island { display: none; }
+    .screen { width: 100%; max-width: 100%; height: 78vh; min-height: 560px; border-radius: 20px; border: 1px solid var(--line); }
+    .screen iframe { width: 100%; max-width: 100%; height: 100%; }
+    .stage { order: 1; }
+    .btn { width: 100%; justify-content: center; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="hex" aria-hidden="true"></div>
+<div class="wrap">
+
+  <header>
+    <a class="hh" href="./" aria-label="HeyHoney"><img src="./assets/heyhoney-logo-white.png" alt="HeyHoney TikTok LIVE Agency"></a>
+    <div class="by"><img src="./assets/opera-mark.png" alt=""><span>Built by <b>Opera Solutions</b> for HeyHoney</span></div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="pill"><i></i> Private preview for Darren</span>
+      <h1>HeyHoney Creator App, <span>working preview</span></h1>
+      <p class="intro">Darren, this is how the HeyHoney Creator App and staff portal would look and work, in your brand. Every number on screen is worked out from the data, and a daily upload in the portal updates everything your creators see.</p>
+
+      <div class="actions">
+        <a class="btn gold" href="./admin/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>
+          Open the staff portal
+        </a>
+        <a class="btn ghost" href="./app/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          Open the creator app full screen
+        </a>
+      </div>
+
+      <div class="try">
+        <h2>Try this</h2>
+        <ol>
+          <li><div><strong>Upload a day of data</strong><span>Open the <a href="./admin/" target="_blank" rel="noopener">staff portal</a> (the sign-in is filled in), go to Import, press Load sample day and commit. The app on this page updates on its own: Ellie's evening streams take her into Tier 8 and up the leaderboard.</span></div></li>
+          <li><div><strong>Open the Winter Battle League</strong><span>In the app, go to Campaigns and open the live league. Ellie's score, rank and the creators around her are all calculated from the daily data.</span></div></li>
+          <li><div><strong>Send a notification</strong><span>In the portal, open Notifications and send a message to all creators or one tier. It lands in the app straight away, next to the ones the data triggers on its own.</span></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div>
+      <div class="stage">
+        <div class="phone">
+          <div class="screen">
+            <div class="island" aria-hidden="true"></div>
+            <iframe src="./app/" title="HeyHoney Creator App" allow="clipboard-write" loading="eager"></iframe>
+          </div>
+        </div>
+      </div>
+      <p class="stage-note">Sign in with the prefilled account, or activate a new one with invite code <b style="color:var(--off)">HONEY-2026</b> and username <b style="color:var(--off)">elliehart.live</b>. <a href="./app/" target="_blank" rel="noopener">Open full screen</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="sig">
+      <img src="./assets/opera-mark.png" alt="">
+      <div><b>Oliver Hammond</b>Founder and CEO, Opera Solutions</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <a class="wa" href="https://wa.me/447852434235" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L.2 24l6.4-1.7a11.8 11.8 0 0 0 5.5 1.4c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.4-8.4zM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.9-9.8 9.9zm5.4-7.3c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.7-.4z"/></svg>
+        Call or WhatsApp +44 7852 434235
+      </a>
+      <a href="https://operasolutions.tech">operasolutions.tech</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>First Serve Engineer</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/app.css">
+<style>
+  html, body { height: 100%; }
+  body { background: #fff; overflow: hidden; }
+  .app { width: 100%; height: 100vh; height: 100dvh; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; background: var(--bg); position: relative; }
+  .scr { flex: 1; overflow: auto; padding: 0 0 92px; -webkit-overflow-scrolling: touch; }
+  .hero { background: linear-gradient(160deg, var(--navy) 0%, #0A4F96 70%, #007DB0 100%); color: #fff; padding: calc(18px + env(safe-area-inset-top)) 20px 22px; border-radius: 0 0 28px 28px; }
+  .hero .top { display: flex; justify-content: space-between; align-items: center; }
+  .hero .top .av { background: rgba(255,255,255,.18); }
+  .hero h1 { font-size: 24px; font-weight: 800; margin-top: 16px; }
+  .hero p { margin: 4px 0 0; opacity: .85; font-size: 13px; }
+  .hero .pills { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .hero .pills span { background: rgba(255,255,255,.14); border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 600; }
+  .hero .pills b { font-family: var(--display); font-size: 14px; }
+  .sec { padding: 18px 16px 0; }
+  .sec h2 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: 10px; }
+  .jobcard { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; margin-bottom: 10px; display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; cursor: pointer; transition: transform .12s; box-shadow: var(--shadow); }
+  .jobcard:active { transform: scale(.985); }
+  .jobcard .when { text-align: center; background: var(--blue-soft); border-radius: 12px; padding: 8px 4px; color: var(--navy); }
+  .jobcard .when b { display: block; font-family: var(--display); font-size: 16px; line-height: 1; }
+  .jobcard .when span { font-size: 10px; font-weight: 600; }
+  .jobcard .addr { font-weight: 700; font-size: 14px; }
+  .jobcard .sub { font-size: 12px; }
+  .jobcard.now { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-soft); }
+  .jobcard.done { opacity: .7; }
+  .jobcard .arrow { color: var(--muted); font-size: 20px; }
+  .tabs { position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(3, 1fr); padding: 8px 0 calc(10px + env(safe-area-inset-bottom)); }
+  .tabs button { border: 0; background: transparent; color: var(--muted); font-size: 11px; font-weight: 600; display: grid; justify-items: center; gap: 3px; padding: 4px 0; }
+  .tabs button svg { width: 22px; height: 22px; }
+  .tabs button.on { color: var(--navy); }
+  /* Detail */
+  .detail { position: absolute; inset: 0; background: var(--bg); transform: translateX(100%); transition: transform .3s cubic-bezier(.2,.8,.2,1); display: flex; flex-direction: column; z-index: 5; }
+  .detail.open { transform: none; }
+  .detail .bar { display: flex; align-items: center; gap: 10px; padding: calc(12px + env(safe-area-inset-top)) 14px 12px; background: #fff; border-bottom: 1px solid var(--line); }
+  .detail .bar h2 { font-size: 16px; font-weight: 800; flex: 1; }
+  .detail .scroll { flex: 1; overflow: auto; padding: 16px 16px 120px; }
+  .block { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; }
+  .block h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: 6px; }
+  .block .big { font-size: 17px; font-weight: 700; }
+  .rowc { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .call { width: 42px; height: 42px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; border: 0; }
+  .map { height: 150px; border-radius: 16px; background: linear-gradient(180deg, #E9EFF5, #DCE5EE); position: relative; overflow: hidden; margin-bottom: 12px; border: 1px solid var(--line); }
+  .map::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px); background-size: 28px 28px; }
+  .map .road { position: absolute; height: 10px; background: #fff; border-radius: 6px; }
+  .map .pin { position: absolute; width: 22px; height: 22px; border-radius: 50% 50% 50% 0; background: var(--orange); transform: rotate(-45deg); left: 62%; top: 38%; box-shadow: 0 4px 10px rgba(0,0,0,.2); }
+  .map .van { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--navy); left: 22%; top: 62%; box-shadow: 0 0 0 5px rgba(0,58,120,.2); }
+  .map .eta { position: absolute; right: 10px; bottom: 10px; background: #fff; border-radius: 10px; padding: 6px 10px; font-size: 12px; font-weight: 700; }
+  .cta { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 16px calc(14px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(244,246,249,0), var(--bg) 30%); display: grid; gap: 8px; }
+  .fault-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fault-grid button { border: 1px solid var(--line); background: #fff; border-radius: 12px; padding: 12px 10px; text-align: left; font-weight: 600; font-size: 13px; }
+  .fault-grid button.on { border-color: var(--navy); background: var(--blue-soft); color: var(--navy); }
+  .parts-list button { display: flex; justify-content: space-between; width: 100%; border: 1px solid var(--line); background: #fff; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; font-weight: 600; }
+  .parts-list button.on { border-color: var(--orange); background: var(--orange-soft); }
+  .photo-row { display: flex; gap: 8px; }
+  .photo-row button { flex: 1; aspect-ratio: 1; border-radius: 12px; border: 1px dashed #B9C4D2; background: #fff; color: var(--muted); font-size: 12px; font-weight: 600; }
+  .photo-row button.has { border-style: solid; background: linear-gradient(135deg, #CFD8E3, #AEBBCB); color: #fff; }
+  .sig { height: 90px; border-radius: 12px; border: 1px dashed #B9C4D2; background: #fff; display: grid; place-items: center; color: var(--muted); font-size: 12px; position: relative; overflow: hidden; }
+  .sig svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sig.has { border-style: solid; }
+  textarea.note { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; min-height: 70px; resize: none; }
+  .donebox { text-align: center; padding: 30px 10px 10px; }
+  .donebox .tick { width: 72px; height: 72px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; margin: 0 auto 12px; font-size: 32px; }
+  .stat { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+  .stat b { font-family: var(--display); font-size: 24px; display: block; }
+  .stat span { font-size: 12px; color: var(--muted); }
+  .me-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .me-row:last-child { border-bottom: 0; }
+  @media (min-width: 600px) and (min-height: 700px) {
+    body { background: radial-gradient(80% 60% at 50% 0%, #DCEAF5 0%, #EEF2F7 60%); }
+    .app { height: min(860px, calc(100vh - 48px)); margin: 24px auto; max-width: 400px; border-radius: 40px; overflow: hidden; box-shadow: 0 0 0 10px #0F1B2D, 0 40px 90px rgba(15,27,45,.35); }
+    .hero { padding-top: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="scr" id="scr"></div>
+  <div class="tabs" id="tabs">
+    <button data-tab="today" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Today</button>
+    <button data-tab="jobs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Jobs</button>
+    <button data-tab="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Me</button>
+  </div>
+  <div class="detail" id="detail"></div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script src="../shared/store.js"></script>
+<script>
+(function () {
+  const $ = (s, el) => (el || document).querySelector(s);
+  const esc = FS.esc;
+  FS.load();
+  const params = new URLSearchParams(location.search);
+  const me = FS.eng(params.get('e') || 'e1');
+  let tab = 'today';
+  let open = null;      // job id in the detail view
+  let flow = {};        // in-progress diagnosis state
+
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2400); }
+  const mine = () => FS.get().jobs.filter((j) => j.engineerId === me.id).sort((a, b) => a.day - b.day || FS.win(a.window).start - FS.win(b.window).start);
+  const todays = () => mine().filter((j) => j.day === 0 && j.status !== 'cancelled');
+  const chip = (j) => { const s = FS.STATUS[j.status]; return `<span class="chip ${s.tone}${['enroute', 'onsite'].includes(j.status) ? ' live' : ''}">${s.label}</span>`; };
+  const whenBox = (j) => { const w = FS.win(j.window); const h = w.start; return `<div class="when"><b>${h > 12 ? h - 12 : h}</b><span>${h >= 12 ? 'pm' : 'am'}</span></div>`; };
+  const card = (j) => { const p = FS.prop(j.propertyId); const now = ['enroute', 'onsite', 'parts'].includes(j.status); return `
+    <div class="jobcard ${now ? 'now' : ''} ${j.status === 'done' ? 'done' : ''}" data-open="${j.id}">
+      ${whenBox(j)}
+      <div><div class="addr">${esc(p.address)}</div><div class="sub">${esc(p.postcode)} · ${j.service === 'steam' ? 'Steam clean, ' : ''}${esc(j.brand)} ${esc(j.appliance.toLowerCase())}</div><div style="margin-top:6px">${chip(j)}</div></div>
+      <div class="arrow">›</div>
+    </div>`; };
+
+  function renderToday() {
+    const js = todays(); const done = js.filter((j) => j.status === 'done').length; const current = js.find((j) => ['enroute', 'onsite'].includes(j.status)); const next = js.find((j) => ['scheduled', 'return', 'booked'].includes(j.status));
+    const h = new Date().getHours();
+    return `
+      <div class="hero">
+        <div class="top"><div style="display:flex;align-items:center;gap:10px"><span class="av">${me.initials}</span><div style="font-size:12px;opacity:.85">Van ${me.van}</div></div><span style="font-size:12px;background:rgba(255,255,255,.14);padding:5px 10px;border-radius:999px">On shift</span></div>
+        <h1>${h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening'}, ${me.name}</h1>
+        <p>${js.length} jobs today across ${me.area}. ${done} done${current ? ', one in progress' : ''}.</p>
+        <div class="pills"><span><b>${done}</b> / ${js.length} complete</span><span><b>${FS.money(js.filter((j) => j.status === 'done').reduce((s, j) => s + FS.total(j), 0))}</b> billed</span><span><b>${me.rating}</b> ★ rating</span></div>
+      </div>
+      ${current ? `<div class="sec"><h2>Happening now</h2>${card(current)}</div>` : next ? `<div class="sec"><h2>Up next</h2>${card(next)}</div>` : ''}
+      <div class="sec"><h2>Today's route</h2>${js.length ? js.map(card).join('') : '<p class="sub">Nothing booked today.</p>'}</div>`;
+  }
+  function renderJobs() {
+    const js = mine().filter((j) => j.day >= 0 && j.status !== 'done');
+    const past = mine().filter((j) => j.status === 'done').sort((a, b) => b.day - a.day).slice(0, 8);
+    const groups = {}; js.forEach((j) => { (groups[j.day] = groups[j.day] || []).push(j); });
+    return `<div class="hero" style="padding-bottom:18px"><h1 style="margin-top:4px">Jobs</h1><p>Your diary, kept up to date by the office and the partner portals.</p></div>
+      ${Object.keys(groups).sort((a, b) => a - b).map((d) => `<div class="sec"><h2>${FS.dayName(+d)}</h2>${groups[d].map(card).join('')}</div>`).join('')}
+      <div class="sec"><h2>Recently completed</h2>${past.map(card).join('')}</div>`;
+  }
+  function renderMe() {
+    const done = mine().filter((j) => j.status === 'done'); const month = done.filter((j) => j.day > -31);
+    const ftf = done.length ? Math.round(100 * done.filter((j) => j.parts.length === 0 || j.parts.every((p) => p.fitted)).length / done.length) : 0;
+    return `<div class="hero" style="padding-bottom:18px"><div style="display:flex;align-items:center;gap:14px;margin-top:4px"><span class="av lg" style="background:rgba(255,255,255,.18)">${me.initials}</span><div><h1 style="margin:0">${me.name}</h1><p>Field engineer · ${me.area}</p></div></div></div>
+      <div class="sec" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="stat"><b>${month.length}</b><span>Repairs last 30 days</span></div>
+        <div class="stat"><b>${ftf}%</b><span>First-time fix</span></div>
+        <div class="stat"><b>${me.rating} ★</b><span>Customer rating</span></div>
+        <div class="stat"><b>${FS.money(month.reduce((s, j) => s + FS.total(j), 0))}</b><span>Billed last 30 days</span></div>
+      </div>
+      <div class="sec"><div class="block">
+        <div class="me-row"><span>Van</span><b>${me.van}</b></div>
+        <div class="me-row"><span>Mobile</span><b>${me.phone}</b></div>
+        <div class="me-row"><span>Van stock</span><b>14 parts</b></div>
+        <div class="me-row"><span>Notifications</span><b style="color:var(--green)">On</b></div>
+      </div></div>
+      <div class="sec"><button class="btn ghost block" data-toast="Stock request sent to the office">Request van stock</button></div>
+      <div class="sec" style="text-align:center"><button class="btn ghost sm" id="resetDemo">Reset preview data</button></div>`;
+  }
+  function render() {
+    $('#scr').innerHTML = { today: renderToday, jobs: renderJobs, me: renderMe }[tab]();
+    document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === tab));
+    if (open) renderDetail();
+  }
+
+  // Job detail and the on-site flow
+  function renderDetail() {
+    const j = FS.job(open); if (!j) { closeDetail(); return; }
+    const p = FS.prop(j.propertyId); const pt = FS.partner(j.partnerId);
+    const d = $('#detail');
+    const head = `<div class="bar"><button class="x" id="back">‹</button><h2>${j.ref}</h2>${chip(j)}</div>`;
+    let body = '', cta = '';
+    const info = `
+      <div class="block"><div class="rowc"><div><h3>Address</h3><div class="big">${esc(p.address)}</div><div class="sub">${esc(p.postcode)} · ${FS.slotLabel(j)}</div></div><button class="btn soft sm" data-toast="Opening in Maps">Directions</button></div></div>
+      <div class="block"><div class="rowc"><div><h3>Tenant</h3><div class="big">${esc(p.tenant)}</div><div class="sub">${esc(p.tenantPhone)} · booked by ${esc(pt.short)}</div></div><button class="call" data-toast="Calling ${esc(p.tenant)}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></button></div></div>
+      <div class="block"><h3>Appliance and fault</h3><div class="big">${esc(j.brand)} ${esc(j.appliance.toLowerCase())}</div><div>${esc(j.fault)}${j.detail ? '. ' + esc(j.detail) : ''}</div>${j.access ? `<div class="sub" style="margin-top:6px">Access: ${esc(j.access)}</div>` : ''}${j.parts.filter((x) => x.approved && !x.fitted).map((x) => `<div class="chip orange" style="margin-top:8px">Fit ${esc(x.name)} (approved)</div>`).join('')}</div>`;
+
+    if (['scheduled', 'booked', 'return'].includes(j.status)) {
+      body = info; cta = `<button class="btn primary lg block" data-adv="enroute">On my way</button><div class="sub" style="text-align:center">${esc(p.tenant)} gets a text with your live arrival time</div>`;
+    } else if (j.status === 'enroute') {
+      body = `<div class="map"><div class="road" style="left:-10%;top:60%;width:60%;transform:rotate(-12deg)"></div><div class="road" style="left:40%;top:30%;width:70%;transform:rotate(18deg)"></div><div class="van"></div><div class="pin"></div><div class="eta">14 min</div></div>` + info;
+      cta = `<button class="btn primary lg block" data-adv="onsite">I've arrived</button>`;
+    } else if (j.status === 'onsite') {
+      const step = flow.step || 'diagnose';
+      if (step === 'diagnose' && j.service === 'steam') {
+        const checks = flow.checks || [];
+        body = info + `<div class="block"><h3>Steam clean at 105°C</h3><div class="fault-grid">${FS.STEAM_STEPS.map((c) => `<button data-check="${esc(c)}" class="${checks.includes(c) ? 'on' : ''}">${checks.includes(c) ? '✓ ' : ''}${c}</button>`).join('')}</div><div class="sub" style="margin-top:8px">${checks.length} of ${FS.STEAM_STEPS.length} done</div></div>
+          <div class="block"><h3>Before and after photos</h3><div class="photo-row">${[0, 1, 2].map((i) => `<button data-photo="${i}" class="${(flow.photos || 0) > i ? 'has' : ''}">${(flow.photos || 0) > i ? 'Photo ' + (i + 1) : '+ Add'}</button>`).join('')}</div></div>`;
+        const ready = checks.length >= 3;
+        cta = `<button class="btn primary lg block" data-flow="fixed" ${ready ? '' : 'disabled'}>Clean complete</button><button class="btn ghost lg block" data-flow="seal" ${ready ? '' : 'disabled'}>Door seal needs replacing</button>`;
+      } else if (step === 'diagnose') {
+        body = info + `<div class="block"><h3>What did you find?</h3><div class="fault-grid">${['Blocked filter or pump', 'Faulty door lock', 'Worn carbon brushes', 'Heating element failed', 'Bearings gone', 'Inlet valve', 'Control module', 'Hose or seal leak'].map((f) => `<button data-diag="${esc(f)}" class="${flow.diag === f ? 'on' : ''}">${f}</button>`).join('')}</div></div>
+          <div class="block"><h3>Photos</h3><div class="photo-row">${[0, 1, 2].map((i) => `<button data-photo="${i}" class="${(flow.photos || 0) > i ? 'has' : ''}">${(flow.photos || 0) > i ? 'Photo ' + (i + 1) : '+ Add'}</button>`).join('')}</div></div>`;
+        cta = `<button class="btn primary lg block" data-flow="fixed" ${flow.diag ? '' : 'disabled'}>Repaired on the spot</button><button class="btn ghost lg block" data-flow="parts" ${flow.diag ? '' : 'disabled'}>Needs a part</button>`;
+      } else if (step === 'parts') {
+        body = `<div class="block"><h3>Part needed</h3><div class="parts-list">${FS.PARTS.map((pp, i) => `<button data-part="${i}" class="${flow.part === i ? 'on' : ''}"><span>${pp.name}</span><span>${FS.money(pp.price)}</span></button>`).join('')}</div></div>
+          <div class="block"><h3>Note for ${esc(pt.short)}</h3><textarea class="note" id="pnote" placeholder="What is wrong and why the part is needed">${esc(flow.notes || (flow.diag ? flow.diag + '. ' : ''))}</textarea></div>`;
+        cta = `<button class="btn accent lg block" data-flow="sendparts" ${flow.part != null ? '' : 'disabled'}>Send quote for approval</button><button class="btn ghost block" data-flow="back">Back</button>`;
+      } else if (step === 'fixed') {
+        body = `<div class="block"><h3>Report</h3><textarea class="note" id="fnote" placeholder="What you did and what you tested">${esc(flow.notes || (flow.diag ? flow.diag + '. Cleared and tested on a full cycle.' : ''))}</textarea></div>
+          <div class="block"><h3>Tenant signature</h3><div class="sig ${flow.signed ? 'has' : ''}" id="sig">${flow.signed ? '<svg viewBox="0 0 300 90"><path d="M20 60 C 50 10, 70 80, 100 45 S 150 20, 170 55 S 230 30, 280 50" fill="none" stroke="#0F1B2D" stroke-width="2.5" stroke-linecap="round"/></svg>' : 'Tap to sign'}</div></div>
+          <div class="block"><div class="rowc"><span>${j.service === 'steam' ? 'Steam clean' : 'Call-out and labour'}</span><b>${FS.money(j.price)}</b></div>${j.parts.filter((x) => x.approved).map((x) => `<div class="rowc"><span>${esc(x.name)}</span><b>${FS.money(x.price)}</b></div>`).join('')}<div class="rowc" style="margin-top:6px;border-top:1px solid var(--line);padding-top:6px"><span>Total</span><b>${FS.money(FS.total(j))}</b></div></div>`;
+        cta = `<button class="btn primary lg block" data-flow="complete" ${flow.signed ? '' : 'disabled'}>Complete job</button><button class="btn ghost block" data-flow="back">Back</button>`;
+      }
+    } else if (j.status === 'parts') {
+      const pend = j.parts[j.parts.length - 1];
+      body = info + `<div class="block" style="border-color:#F7D5B0;background:var(--orange-soft)"><h3>Waiting for ${esc(pt.short)}</h3><div class="big">${esc(pend.name)} · ${FS.money(pend.price)}</div><div class="sub">Quote sent ${FS.timeStr(j.timeline[j.timeline.length - 1].at)}. You will be pinged when they approve and the return visit books itself.</div></div>`;
+      cta = `<button class="btn ghost lg block" data-close="1">Back to route</button>`;
+    } else if (j.status === 'done') {
+      body = `<div class="donebox"><div class="tick">✓</div><h2 style="font-size:22px;font-weight:800">Job complete</h2><p class="sub">Report sent to ${esc(pt.short)}.${j.service === 'steam' ? '' : ' Guarantee started.'} ${esc(p.tenant)} has been asked for a review.</p></div>
+        <div class="block"><h3>Report</h3>${esc(j.notes)}${j.parts.filter((x) => x.fitted).map((x) => `<div class="sub">Fitted ${esc(x.name)}</div>`).join('')}</div>
+        <div class="block"><div class="rowc"><span>Billed</span><b>${FS.money(FS.total(j))}</b></div></div>`;
+      cta = `<button class="btn primary lg block" data-close="1">Next job</button>`;
+    }
+    d.innerHTML = head + `<div class="scroll">${body}</div><div class="cta">${cta}</div>`;
+    d.classList.add('open');
+  }
+  function closeDetail() { open = null; flow = {}; $('#detail').classList.remove('open'); }
+
+  document.addEventListener('click', (ev) => {
+    const t = ev.target;
+    const o = t.closest('[data-open]'); if (o) { open = o.dataset.open; flow = {}; renderDetail(); return; }
+    if (t.closest('#back') || t.closest('[data-close]')) { closeDetail(); return; }
+    const tb = t.closest('#tabs button'); if (tb) { tab = tb.dataset.tab; render(); return; }
+    const tt = t.closest('[data-toast]'); if (tt) { toast(tt.dataset.toast); return; }
+    if (t.closest('#resetDemo')) { FS.reset(); toast('Preview data reset'); return; }
+    const adv = t.closest('[data-adv]'); if (adv) { const p = FS.prop(FS.job(open).propertyId); FS.advance(open, adv.dataset.adv); toast(adv.dataset.adv === 'enroute' ? `${p.tenant} texted: arriving in about 14 minutes` : 'Arrival logged. Office and partner can see you are on site'); return; }
+    const ck = t.closest('[data-check]'); if (ck) { const c = ck.dataset.check; flow.checks = flow.checks || []; flow.checks = flow.checks.includes(c) ? flow.checks.filter((x) => x !== c) : flow.checks.concat(c); flow.diag = 'Steam cleaned at 105°C: ' + flow.checks.join(', ').toLowerCase(); renderDetail(); return; }
+    const dg = t.closest('[data-diag]'); if (dg) { flow.diag = dg.dataset.diag; renderDetail(); return; }
+    const ph = t.closest('[data-photo]'); if (ph) { flow.photos = Math.max(flow.photos || 0, +ph.dataset.photo + 1); renderDetail(); toast('Photo added'); return; }
+    const pp = t.closest('[data-part]'); if (pp) { flow.notes = $('#pnote') ? $('#pnote').value : flow.notes; flow.part = +pp.dataset.part; renderDetail(); return; }
+    if (t.closest('#sig')) { flow.notes = $('#fnote') ? $('#fnote').value : flow.notes; flow.signed = true; renderDetail(); return; }
+    const fl = t.closest('[data-flow]'); if (fl) {
+      const k = fl.dataset.flow;
+      if (k === 'parts' || k === 'fixed') { flow.step = k; renderDetail(); }
+      else if (k === 'seal') { flow.step = 'parts'; flow.part = FS.PARTS.findIndex((x) => x.name === 'Door seal'); flow.notes = (flow.diag || '') + '. Door seal is perished with black mould inside the folds and cannot be sanitised. Replacement recommended.'; renderDetail(); }
+      else if (k === 'back') { flow.step = 'diagnose'; renderDetail(); }
+      else if (k === 'sendparts') { const part = FS.PARTS[flow.part]; FS.advance(open, 'parts', { part, notes: $('#pnote').value, photos: flow.photos || 0 }); flow = {}; toast(`Quote sent to ${FS.partner(FS.job(open).partnerId).short} for approval`); }
+      else if (k === 'complete') { FS.advance(open, 'done', { notes: $('#fnote').value, photos: flow.photos || 0 }); flow = {}; toast('Report sent, guarantee started'); }
+    }
+  });
+
+  FS.subscribe(() => render());
+  render();
+})();
+</script>
+</body>
+</html>
