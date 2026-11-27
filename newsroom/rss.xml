@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Opera Solutions newsroom</title>
+  <link>https://operasolutions.tech/newsroom/</link>
+  <atom:link href="https://operasolutions.tech/newsroom/rss.xml" rel="self" type="application/rss+xml" />
+  <description>Launches, product news and the work Opera Solutions ships for its customers.</description>
+  <language>en-gb</language>
+  <lastBuildDate>Thu, 26 Nov 2026 09:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Overture adds Pulse, leadership checks and PDF reports</title>
+    <link>https://operasolutions.tech/newsroom/overture-pulse-leadership-checks-and-reports/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/overture-pulse-leadership-checks-and-reports/</guid>
+    <pubDate>Thu, 26 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Product</category>
+    <description>Target lists kept under watch on their own timetable, a clear answer on who runs each company, and reports and call sheets that print.</description>
+  </item>
+  <item>
+    <title>Nabor is live on the App Store</title>
+    <link>https://operasolutions.tech/newsroom/nabor-live-on-the-app-store/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/nabor-live-on-the-app-store/</guid>
+    <pubDate>Wed, 25 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Launches</category>
+    <description>Nabor, the London safety and disruption app we designed and built, is now available on iPhone across the United Kingdom.</description>
+  </item>
+  <item>
+    <title>LiveryLoop is live on the App Store</title>
+    <link>https://operasolutions.tech/newsroom/liveryloop-live-on-the-app-store/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/liveryloop-live-on-the-app-store/</guid>
+    <pubDate>Wed, 25 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Launches</category>
+    <description>The app that brings yard managers, staff and horse owners together on one livery yard is now available on iPhone.</description>
+  </item>
+  <item>
+    <title>Overture now watches your accounts for buying signals</title>
+    <link>https://operasolutions.tech/newsroom/overture-watches-your-accounts-for-buying-signals/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/overture-watches-your-accounts-for-buying-signals/</guid>
+    <pubDate>Tue, 17 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Product</category>
+    <description>A weekly re-check of every account in play, 24 kinds of buying signal, sharper contact finding and a plain-English readout of what is working.</description>
+  </item>
+  <item>
+    <title>Introducing Opera Overture</title>
+    <link>https://operasolutions.tech/newsroom/introducing-opera-overture/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/introducing-opera-overture/</guid>
+    <pubDate>Mon, 16 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Product</category>
+    <description>An outbound sales system that finds, researches and contacts the right companies, and runs on a Mac mini in your own office.</description>
+  </item>
+  <item>
+    <title>Website packages and project deposits can now be paid online</title>
+    <link>https://operasolutions.tech/newsroom/pay-online/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/pay-online/</guid>
+    <pubDate>Thu, 12 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Company</category>
+    <description>Card payment for website packages, Mac mini deployment deposits and agreed invoices, straight from our website.</description>
+  </item>
+  <item>
+    <title>Clearby: a waste collection booked the way you book a ride</title>
+    <link>https://operasolutions.tech/newsroom/clearby-for-surrey-waste/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/clearby-for-surrey-waste/</guid>
+    <pubDate>Fri, 06 Nov 2026 09:00:00 GMT</pubDate>
+    <category>Work</category>
+    <description>For Surrey Waste we built a customer app, a driver mode and a business portal that share one live view of every collection.</description>
+  </item>
+  <item>
+    <title>A new look for Opera Solutions</title>
+    <link>https://operasolutions.tech/newsroom/a-new-look-for-opera-solutions/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/a-new-look-for-opera-solutions/</guid>
+    <pubDate>Sat, 31 Oct 2026 09:00:00 GMT</pubDate>
+    <category>Company</category>
+    <description>A new mark, a forest and mint palette, and a website rebuilt around the products we make.</description>
+  </item>
+  <item>
+    <title>callby.app goes live</title>
+    <link>https://operasolutions.tech/newsroom/callby-app-goes-live/</link>
+    <guid isPermaLink="true">https://operasolutions.tech/newsroom/callby-app-goes-live/</guid>
+    <pubDate>Tue, 27 Oct 2026 09:00:00 GMT</pubDate>
+    <category>Work</category>
+    <description>The website for CALLBY, the chauffeur for your own car, with the app running live inside it.</description>
+  </item>
+</channel>
+</rss>

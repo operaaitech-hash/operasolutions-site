@@ -1,0 +1,36 @@
+/* Trade Hunter brand tokens, shared by the website, app and HQ dashboard. */
+:root {
+  --ink: #0B0C0A;
+  --ink-2: #121311;
+  --panel: #181916;
+  --panel-2: #1F201C;
+  --line: rgba(242, 239, 232, 0.08);
+  --line-2: rgba(242, 239, 232, 0.14);
+  --text: #F2EFE8;
+  --text-2: #C9C5BB;
+  --muted: #8E8A80;
+  --hi: #F5EC20;
+  --hi-soft: rgba(245,236,32, 0.12);
+  --hi-ink: #171300;
+  --ok: #6CCB8E;
+  --ok-soft: rgba(108, 203, 142, 0.12);
+  --warn: #F2A93B;
+  --bad: #EF6B5B;
+  --display: 'Open Sans', 'Inter', system-ui, sans-serif;
+  --body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --spring: cubic-bezier(.34, 1.4, .5, 1);
+  color-scheme: dark;
+}
+.th-wordmark { font-family: var(--display); font-weight: 800; letter-spacing: .01em; line-height: 1; text-transform: uppercase; }
+.th-grain { position: relative; isolation: isolate; }
+.th-grain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1; opacity: .5; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.ico { flex: none; display: block; }
+.tiles-base{filter:brightness(.62) contrast(1.12) saturate(.6) sepia(.12)}
+.tiles-ref{filter:brightness(.85);opacity:.5}
+.leaflet-container { background: #0E0F0D !important; font-family: var(--body) !important; }
+.leaflet-control-attribution { background: rgba(11, 12, 10, .6) !important; color: #6d6a62 !important; font-size: 9px !important; }
+.leaflet-control-attribution a { color: #8E8A80 !important; }

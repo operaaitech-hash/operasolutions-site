@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>First Serve UK Operations</title>
+<link rel="icon" href="../assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/app.css">
+<style>
+  body { background: #0E1C30; color: #E8EDF5; }
+  :root { --card: #16263E; --line: rgba(255,255,255,.08); --ink: #E8EDF5; --ink-2: #B7C3D6; --muted: #8696AE; --bg: #0E1C30; --blue-soft: rgba(0,125,176,.2); --orange-soft: rgba(242,140,40,.18); --green-soft: rgba(30,158,98,.18); --amber-soft: rgba(217,142,4,.18); --shadow: 0 8px 30px rgba(0,0,0,.25); }
+  .chip.blue { color: #8FD1F2; } .chip.amber { color: #FFD166; } .chip.orange { color: #FFB36B; } .chip.green { color: #6FE0A6; } .chip.grey { background: rgba(255,255,255,.08); color: var(--ink-2); }
+  .btn.ghost { background: rgba(255,255,255,.06); color: var(--ink); border-color: var(--line); } .btn.ghost:hover { background: rgba(255,255,255,.1); }
+  .btn.soft { background: rgba(0,125,176,.25); color: #BFE6F7; }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(14,28,48,.85); backdrop-filter: blur(10px); z-index: 10; }
+  .top .brand { display: flex; align-items: center; gap: 12px; }
+  .top .brand img { width: 38px; height: 38px; border-radius: 10px; background: #fff; padding: 3px; }
+  .top .brand b { font-family: var(--display); font-size: 16px; display: block; line-height: 1.1; }
+  .top .brand span { font-size: 12px; color: var(--muted); }
+  .top .clock { font-family: var(--display); font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+  .top .right { display: flex; gap: 14px; align-items: center; }
+  .live { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #6FE0A6; }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #6FE0A6; box-shadow: 0 0 0 4px rgba(111,224,166,.2); animation: pulse2 1.6s infinite; }
+  @keyframes pulse2 { 50% { box-shadow: 0 0 0 8px rgba(111,224,166,0); } }
+  main { padding: 24px 28px 48px; display: grid; gap: 18px; max-width: 1480px; margin: 0 auto; }
+  .kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .kpi .value { color: #fff; }
+  .kpi .spark { height: 28px; display: flex; align-items: flex-end; gap: 3px; margin-top: 10px; }
+  .kpi .spark i { flex: 1; background: rgba(0,125,176,.5); border-radius: 2px 2px 0 0; min-height: 3px; }
+  .kpi .spark i:last-child { background: var(--orange); }
+  .row2 { display: grid; grid-template-columns: 1.6fr 1fr; gap: 18px; align-items: start; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; align-items: start; }
+  .board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 16px; }
+  .col h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 10px; display: flex; justify-content: space-between; }
+  .col h4 b { color: var(--ink); }
+  .tile { background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; font-size: 12px; cursor: pointer; transition: background .12s, transform .12s; }
+  .tile:hover { background: rgba(255,255,255,.08); transform: translateY(-1px); }
+  .tile b { display: block; font-size: 13px; color: #fff; }
+  .tile .eng { display: flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--ink-2); }
+  .tile.hot { border-color: rgba(242,140,40,.6); background: rgba(242,140,40,.1); }
+  .tile.unassigned { border-style: dashed; border-color: rgba(255,209,102,.5); }
+  .engs { display: grid; gap: 10px; padding: 16px; }
+  .eng-card { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .eng-card .bar { height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .eng-card .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), #6FE0A6); border-radius: 3px; transition: width .6s ease; }
+  .eng-card .now { font-size: 12px; color: var(--ink-2); }
+  .chart { padding: 16px 20px 10px; }
+  .bars { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; align-items: end; height: 150px; }
+  .bars div { display: grid; align-content: end; justify-items: center; gap: 6px; height: 100%; }
+  .bars i { width: 100%; max-width: 44px; background: linear-gradient(180deg, #2A9BD6, #007DB0); border-radius: 8px 8px 3px 3px; transition: height .7s cubic-bezier(.2,.8,.2,1); position: relative; }
+  .bars i::after { content: attr(data-v); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--ink-2); font-weight: 600; }
+  .bars div:last-child i { background: linear-gradient(180deg, #FFA94D, var(--orange)); }
+  .bars span { font-size: 11px; color: var(--muted); }
+  .feed { padding: 6px 20px; max-height: 330px; overflow: auto; }
+  .feed .ev { display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .feed .ev:last-child { border-bottom: 0; }
+  .feed .ev .av { width: 30px; height: 30px; font-size: 10px; }
+  .feed .ev .t { color: var(--muted); font-size: 11px; }
+  .alert { display: flex; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--line); }
+  .alert:last-child { border-bottom: 0; }
+  .alert .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; flex: 0 0 auto; }
+  .alert .ic.o { background: var(--orange-soft); color: #FFB36B; } .alert .ic.a { background: var(--amber-soft); color: #FFD166; }
+  .alert b { display: block; font-size: 13px; }
+  .alert select { background: rgba(255,255,255,.06); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font-size: 12px; }
+  .review { padding: 12px 20px; border-bottom: 1px solid var(--line); font-size: 13px; }
+  .review:last-child { border-bottom: 0; }
+  .review .stars { color: #FFD166; letter-spacing: 1px; font-size: 12px; }
+  .review .who { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .gauge { display: flex; gap: 14px; align-items: center; padding: 16px 20px; }
+  .gauge .ring { width: 72px; height: 72px; border-radius: 50%; background: conic-gradient(#6FE0A6 var(--p), rgba(255,255,255,.08) 0); display: grid; place-items: center; }
+  .gauge .ring span { width: 56px; height: 56px; border-radius: 50%; background: var(--card); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 15px; }
+  table.list td, table.list th { color: inherit; }
+  .drawer { background: #16263E; color: var(--ink); }
+  .x { background: rgba(255,255,255,.06); color: var(--ink); }
+  @media (max-width: 1100px) { .kpis { grid-template-columns: repeat(3, 1fr); } .row2, .row3 { grid-template-columns: 1fr; } .board { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .kpis { grid-template-columns: 1fr 1fr; } main, .top { padding-left: 16px; padding-right: 16px; } .board { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand"><img src="../assets/favicon.png" alt=""><div><b>First Serve UK</b><span>Operations dashboard</span></div></div>
+  <div class="right"><span class="live"><i></i>Live</span><span class="clock" id="clock"></span><span class="av" style="background:var(--orange)">AH</span></div>
+</div>
+<main>
+  <div class="kpis" id="kpis"></div>
+  <div class="row2">
+    <div class="card"><div class="head"><h3>Today's board</h3><span class="sub" id="boardSub"></span></div><div class="board" id="board"></div></div>
+    <div class="card"><div class="head"><h3>Needs a decision</h3><span class="sub">Updates as the day moves</span></div><div id="alerts"></div></div>
+  </div>
+  <div class="row3">
+    <div class="card"><div class="head"><h3>Engineers</h3><span class="sub">Progress through today</span></div><div class="engs" id="engs"></div></div>
+    <div class="card"><div class="head"><h3>Last 7 days</h3><span class="sub">Repairs and revenue</span></div><div class="chart"><div class="bars" id="bars"></div></div><div class="gauge" id="gauge"></div></div>
+    <div class="card"><div class="head"><h3>Activity</h3><span class="sub">Portal, app and office</span></div><div class="feed" id="feed"></div></div>
+  </div>
+  <div class="row2">
+    <div class="card"><div class="head"><h3>Partner accounts</h3><span class="sub">This month</span></div><table class="list" id="partners"></table></div>
+    <div class="card"><div class="head"><h3>Latest Google reviews</h3><span class="sub">1,205 five-star</span></div><div id="reviews"></div></div>
+  </div>
+</main>
+<div class="drawer-bg" id="drawerBg"></div>
+<div class="drawer" id="drawer"></div>
+<div class="toast" id="toast"></div>
+
+<script src="../shared/store.js"></script>
+<script>
+(function () {
+  const $ = (s) => document.querySelector(s); const esc = FS.esc;
+  FS.load();
+  function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2400); }
+  const tick = () => { $('#clock').textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); }; tick(); setInterval(tick, 15000);
+  const chip = (j) => { const s = FS.STATUS[j.status]; return `<span class="chip ${s.tone}${['enroute', 'onsite'].includes(j.status) ? ' live' : ''}">${s.label}</span>`; };
+
+  function render() {
+    const S = FS.get(); const st = FS.stats(); const week = FS.weekSeries();
+    const today = st.todayJobs; const doneToday = today.filter((j) => j.status === 'done');
+    const revToday = doneToday.reduce((a, j) => a + FS.total(j), 0);
+    const revWeek = week.reduce((a, d) => a + d.revenue, 0);
+    const spark = (vals) => `<div class="spark">${vals.map((v) => `<i style="height:${Math.max(15, Math.round(100 * (v - 80) / 20))}%"></i>`).join('')}</div>`;
+    $('#kpis').innerHTML = `
+      <div class="card kpi"><div class="label">Jobs today</div><div class="value">${today.length}</div><div class="delta">${doneToday.length} complete, ${today.filter((j) => ['enroute', 'onsite'].includes(j.status)).length} in progress</div></div>
+      <div class="card kpi"><div class="label">Revenue today</div><div class="value">${FS.money(revToday)}</div><div class="delta up">${FS.money(revWeek)} this week</div></div>
+      <div class="card kpi"><div class="label">First-time fix</div><div class="value">${st.firstTime}%</div>${spark([92, 95, 93, 97, 96, 94, st.firstTime])}</div>
+      <div class="card kpi"><div class="label">Same-day share</div><div class="value">${st.sameDayShare}%</div><div class="delta">${st.steam} steam cleans booked</div></div>
+      <div class="card kpi"><div class="label">Awaiting approval</div><div class="value">${st.approvals.length}</div><div class="delta ${st.approvals.length ? 'warn' : ''}">${st.approvals.length ? FS.money(st.approvals.reduce((a, j) => a + j.parts[j.parts.length - 1].price, 0)) + ' of parts quoted' : 'Nothing waiting'}</div></div>
+      <div class="card kpi"><div class="label">Google rating</div><div class="value">4.9</div><div class="delta up">1,205 five-star reviews</div></div>`;
+
+    const cols = [['scheduled', 'Scheduled', (j) => ['booked', 'scheduled', 'return'].includes(j.status)], ['enroute', 'On the way', (j) => j.status === 'enroute'], ['onsite', 'On site', (j) => j.status === 'onsite'], ['parts', 'Parts quoted', (j) => j.status === 'parts'], ['done', 'Completed', (j) => j.status === 'done']];
+    const dayJobs = S.jobs.filter((j) => j.day === 0 && j.status !== 'cancelled').sort((a, b) => FS.win(a.window).start - FS.win(b.window).start);
+    $('#boardSub').textContent = `${dayJobs.length} jobs, ${S.engineers.length} engineers out`;
+    $('#board').innerHTML = cols.map(([k, label, f]) => { const js = dayJobs.filter(f); return `<div class="col"><h4>${label}<b>${js.length}</b></h4>${js.map((j) => { const p = FS.prop(j.propertyId); const e = FS.eng(j.engineerId); return `<div class="tile ${j.status === 'parts' ? 'hot' : ''} ${!e ? 'unassigned' : ''}" data-open="${j.id}"><b>${esc(p.postcode)} · ${esc(FS.partner(j.partnerId).short)}</b>${j.service === 'steam' ? '<span class="chip blue" style="margin:2px 0 4px">Steam clean</span><br>' : ''}${esc(j.brand)} ${esc(j.appliance.toLowerCase())}, ${esc(j.fault.toLowerCase())}<div class="eng">${e ? `<span class="av sm">${e.initials}</span>${e.name} · ${FS.win(j.window).label}` : '<span style="color:#FFD166">Unassigned · ' + FS.win(j.window).label + '</span>'}</div></div>`; }).join('') || '<div class="sub" style="font-size:12px">None</div>'}</div>`; }).join('');
+
+    const alerts = [];
+    st.unassigned.filter((j) => j.day === 0).forEach((j) => { const p = FS.prop(j.propertyId); alerts.push(`<div class="alert"><div class="ic a">!</div><div style="flex:1"><b>${j.ref} needs an engineer</b><span class="sub">${esc(p.address)}, ${esc(p.postcode)} · ${FS.slotLabel(j)} · ${FS.SERVICE_LABEL[j.service].toLowerCase()}</span></div><select data-assign="${j.id}"><option value="">Assign</option>${S.engineers.map((e) => `<option value="${e.id}">${e.name}</option>`).join('')}</select></div>`); });
+    st.approvals.forEach((j) => { const p = FS.prop(j.propertyId); const pt = j.parts[j.parts.length - 1]; alerts.push(`<div class="alert"><div class="ic o">£</div><div style="flex:1"><b>${esc(FS.partner(j.partnerId).short)} to approve ${esc(pt.name)}, ${FS.money(pt.price)}</b><span class="sub">${j.ref} · ${esc(p.postcode)} · quoted by ${esc(FS.eng(j.engineerId).name)} at ${FS.timeStr(j.timeline[j.timeline.length - 1].at)}</span></div><button class="btn ghost sm" data-nudge="${j.id}">Nudge</button></div>`); });
+    S.jobs.filter((j) => j.day === 1 && j.status === 'booked').forEach((j) => { const p = FS.prop(j.propertyId); alerts.push(`<div class="alert"><div class="ic a">T</div><div style="flex:1"><b>Tomorrow: ${j.ref} unassigned</b><span class="sub">${esc(p.address)} · ${FS.win(j.window).label}</span></div><select data-assign="${j.id}"><option value="">Assign</option>${S.engineers.map((e) => `<option value="${e.id}">${e.name}</option>`).join('')}</select></div>`); });
+    $('#alerts').innerHTML = alerts.join('') || '<div class="alert"><div class="ic" style="background:var(--green-soft);color:#6FE0A6">✓</div><div><b>All clear</b><span class="sub">Every job has an engineer and nothing is waiting on a partner.</span></div></div>';
+
+    $('#engs').innerHTML = S.engineers.map((e) => { const js = dayJobs.filter((j) => j.engineerId === e.id); const d = js.filter((j) => j.status === 'done').length; const cur = js.find((j) => ['enroute', 'onsite'].includes(j.status)); const nxt = js.find((j) => ['scheduled', 'return'].includes(j.status)); return `
+      <div class="eng-card"><span class="av lg">${e.initials}</span><div><b>${e.name}</b> <span class="sub">· ${e.area}</span><div class="now">${cur ? `${FS.STATUS[cur.status].label} at ${esc(FS.prop(cur.propertyId).postcode)}` : nxt ? `Next: ${esc(FS.prop(nxt.propertyId).postcode)}, ${FS.win(nxt.window).label}` : d === js.length && js.length ? 'Day complete' : 'Free'}</div><div class="bar"><i style="width:${js.length ? Math.round(100 * d / js.length) : 0}%"></i></div></div><div style="text-align:right"><b style="font-family:var(--display);font-size:18px">${d}/${js.length}</b><div class="sub">jobs</div></div></div>`; }).join('');
+
+    const max = Math.max(...week.map((d) => d.revenue), 1);
+    $('#bars').innerHTML = week.map((d) => `<div><i style="height:${Math.max(4, Math.round(100 * d.revenue / max))}%" data-v="${d.jobs}"></i><span>${d.day}</span></div>`).join('');
+    const ontime = 96;
+    $('#gauge').innerHTML = `<div class="ring" style="--p:${ontime}%"><span>${ontime}%</span></div><div><b>Arrived inside the window</b><div class="sub">Across ${S.jobs.filter((j) => j.status === 'done').length} completed repairs. Tenants are texted a live arrival time, so late never means unannounced.</div></div>`;
+
+    const who = (id) => { const e = FS.eng(id); if (e) return `<span class="av">${e.initials}</span>`; const p = FS.partner(id); if (p) return `<span class="av" style="background:${p.colour}">${FS.initials(p.short)}</span>`; return `<span class="av" style="background:#44546A">OF</span>`; };
+    const events = S.events.length ? S.events : [{ at: Date.now() - 600000, text: 'Dev completed FS-24843 at E14 9HN', who: 'e3' }, { at: Date.now() - 1500000, text: 'Ali quoted Heating element on FS-24840, approval needed', who: 'e2' }, { at: Date.now() - 2400000, text: 'Strattons booked FS-24845 at E8 3RH', who: 'p5' }, { at: Date.now() - 3900000, text: 'Ismail completed FS-24836 at SW6 4HH', who: 'e1' }];
+    $('#feed').innerHTML = events.slice(0, 12).map((ev) => `<div class="ev">${who(ev.who)}<div>${esc(ev.text)}</div><span class="t">${FS.timeStr(ev.at)}</span></div>`).join('');
+
+    $('#partners').innerHTML = `<thead><tr><th>Partner</th><th>Contact</th><th>Repairs</th><th>Open</th><th>Spend</th><th>Approvals</th></tr></thead><tbody>${S.partners.map((p) => { const ps = FS.stats(p.id); return `<tr><td><span style="display:inline-flex;align-items:center;gap:8px"><span class="av sm" style="background:${p.colour}">${FS.initials(p.short)}</span><b>${esc(p.name)}</b></span></td><td>${esc(p.contact)}<div class="sub">${esc(p.branch)}</div></td><td>${ps.inMonth.length}</td><td>${ps.open.length}</td><td><b>${FS.money(ps.spendMonth)}</b></td><td>${ps.approvals.length ? '<span class="chip orange">' + ps.approvals.length + ' waiting</span>' : '<span class="sub">None</span>'}</td></tr>`; }).join('')}</tbody>`;
+    $('#reviews').innerHTML = S.reviews.map((r) => `<div class="review"><div class="stars">★★★★★</div>${esc(r.text)}<div class="who">${esc(r.who)} · Google · ${r.when}</div></div>`).join('');
+  }
+
+  function openJob(id) {
+    const j = FS.job(id); const p = FS.prop(j.propertyId); const e = FS.eng(j.engineerId); const pt = FS.partner(j.partnerId);
+    $('#drawer').innerHTML = `<div class="dh"><div><div class="sub mono">${j.ref}</div><h2 style="font-size:20px;font-weight:800">${esc(p.address)}</h2><div class="sub">${esc(p.postcode)} · ${esc(pt.name)} · ${esc(p.tenant)}</div><div style="margin-top:8px">${chip(j)}</div></div><button class="x" id="dClose">×</button></div>
+      <div class="db">
+        <p style="margin:0 0 14px"><b>${esc(j.brand)} ${esc(j.appliance.toLowerCase())}</b>, ${esc(j.fault.toLowerCase())} · ${FS.slotLabel(j)} · ${FS.SERVICE_LABEL[j.service]} ${FS.money(j.price)}</p>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px">${e ? `<span class="av">${e.initials}</span><div><b>${e.name}</b><div class="sub">Van ${e.van}</div></div>` : '<span class="sub">No engineer yet</span>'}<select data-assign="${j.id}" style="margin-left:auto;background:rgba(255,255,255,.06);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px"><option value="">${e ? 'Reassign' : 'Assign'}</option>${FS.get().engineers.map((x) => `<option value="${x.id}">${x.name}</option>`).join('')}</select></div>
+        ${j.notes ? `<div class="tile" style="cursor:default"><b>Engineer notes</b>${esc(j.notes)}</div>` : ''}
+        ${j.parts.length ? `<div class="tile" style="cursor:default"><b>Parts</b>${j.parts.map((x) => `${esc(x.name)} ${FS.money(x.price)} · ${x.fitted ? 'fitted' : x.approved ? 'approved, to fit' : x.declined ? 'declined' : 'awaiting approval'}`).join('<br>')}</div>` : ''}
+        <h3 style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:16px 0 10px">Timeline</h3>
+        <ul class="tl">${j.timeline.slice().reverse().map((t) => `<li>${esc(t.text)}<span class="t">${FS.timeStr(t.at)}</span></li>`).join('')}</ul>
+      </div>
+      <div class="df"><b style="font-size:18px">${FS.money(FS.total(j))}</b><span class="sub" style="align-self:center">billed to ${esc(pt.short)}</span></div>`;
+    $('#drawer').classList.add('open'); $('#drawerBg').classList.add('open'); $('#dClose').onclick = closeDrawer;
+  }
+  function closeDrawer() { $('#drawer').classList.remove('open'); $('#drawerBg').classList.remove('open'); }
+  $('#drawerBg').addEventListener('click', closeDrawer);
+  document.addEventListener('click', (ev) => {
+    const o = ev.target.closest('[data-open]'); if (o) { openJob(o.dataset.open); return; }
+    const n = ev.target.closest('[data-nudge]'); if (n) { toast(`Reminder sent to ${FS.partner(FS.job(n.dataset.nudge).partnerId).contact}`); }
+  });
+  document.addEventListener('change', (ev) => { const s = ev.target.closest('[data-assign]'); if (s && s.value) { FS.assign(s.dataset.assign, s.value); toast(`Assigned to ${FS.eng(s.value).name}. Engineer and tenant notified.`); closeDrawer(); } });
+  FS.subscribe(render);
+  render();
+})();
+</script>
+</body>
+</html>
